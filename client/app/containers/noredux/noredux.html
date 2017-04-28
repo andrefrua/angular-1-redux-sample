@@ -1,0 +1,35 @@
+<header class="header">
+  <h1>Todos</h1>
+  <!--<input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">-->
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>You've got <span class="emphasis">{{$ctrl.getTotalTodos()}}</span> things to do</h2>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Add Todo" ng-model="$ctrl.todo">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.todo" ng-click="$ctrl.addTodo()">Save</button>
+                  </span>
+            </div>
+
+            <hr>
+            <ul class="list-unstyled">
+                <li class="ui-state-default" ng-repeat="todo in $ctrl.todos">
+                    <div class="checkbox">
+                        <label>
+                           <input type="checkbox" ng-model="todo.done"/>
+                            <span class="done-{{todo.done}}">{{todo.text}}</span>                  
+                            <button class="btn btn-primary" type="button"  ng-click="$ctrl.deleteTodo($index)">x</button>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+
+
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.clearCompleted()">Clear completed</button>
+        </div>
+    </div>
+</div>
