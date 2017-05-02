@@ -1,27 +1,65 @@
+<code>
+    {{$ctrl.currentState}}
+</code>
+
 <div class="container">
     <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>With Redux</h1>
+        </div>
         <div class="col-md-6">
-            <h1>Todos</h1>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Add Todo" ng-model="$ctrl.todo">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.todo" ng-click="$ctrl.submitTodo($ctrl.todo)">Save</button>
+            <div class="todolist not-done">
+                <h1>To-do list</h1>
+                <div class="input-group">
+                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.currentState.inputTodo">
+                    <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.currentState.inputTodo" ng-click="$ctrl.addTodo($ctrl.currentState.inputTodo)">Add</button>
                   </span>
+                </div>
+
+                <button class="btn btn-success marginTop10px" ng-if="!$ctrl.currentState.allDone && $ctrl.countTodos('SHOW_ALL') > 0" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
+                <button class="btn btn-danger marginTop10px" ng-if="$ctrl.countTodos('SHOW_DONE')" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
+
+                <div class="checkbox pull-right">
+                    <label>
+                        <input type="checkbox" ng-model="$ctrl.currentState.showDone" />
+                        Show done
+                    </label>
+                </div>
+                <hr>
+
+                <ul id="sortable" class="list-unstyled">
+                    <li class="ui-state-default" ng-repeat="todo in $ctrl.listTodos('SHOW_ALL')" ng-if="!(!$ctrl.currentState.showDone && todo.done)">
+                        <div class="checkbox">
+                            <label class="done-{{todo.done}}">
+                                <input type="checkbox" ng-model="todo.done" />
+                                {{todo.text}}
+                            </label>
+                            <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.removeTodo($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <div class="todo-footer">
+                    <strong><span class="count-todos">{{$ctrl.countTodos('SHOW_ALL')}}</span></strong> total |
+                    <strong><span class="count-todos">{{$ctrl.countTodos('SHOW_DONE')}}</span></strong> done
+                </div>
             </div>
-
-            <hr>
-            <ul class="list-unstyled">
-                <li class="ui-state-default" ng-repeat="todo in $ctrl.todos">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-click="$ctrl.removeTodo($index)"> {{todo}}
-                        </label>
-                    </div>
-                </li>
-            </ul>
-
-
-            <button class="btn btn-primary" type="button" ng-click="$ctrl.alertCurrentTodo()">Alert current Todo</button>
+        </div>
+        <div class="col-md-6">
+            <div class="todolist">
+                <h1>Already done</h1>
+                <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)">Uncheck all</button>
+                <ul id="done-items" class="list-unstyled">
+                    <li ng-repeat="doneTodo in $ctrl.listTodos('SHOW_DONE')">
+                        {{doneTodo.text}}
+                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.removeDone(doneTodo.id)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

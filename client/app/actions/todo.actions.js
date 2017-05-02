@@ -1,23 +1,37 @@
 import { TODOS } from '../constants/todos';
 
-function addTodo(todo){
+function addTodo(newTodo) {
     return {
         type: TODOS.ADD_TODO,
-        payload: todo
+        payload: newTodo
     }
 }
 
-function removeTodo(index){
+function removeTodo(index) {
     return {
         type: TODOS.REMOVE_TODO,
         payload: index
     };
 }
 
-function listTodo(){
+function removeDone(id) {
     return {
-        type: TODOS.LIST_TODO
+        type: TODOS.REMOVE_DONE,
+        payload: id
     };
 }
 
-export default { addTodo, removeTodo, listTodo };
+function markAllAsDone(mark) {
+    return {
+        type: TODOS.MARK_ALL_AS_DONE,
+        payload: mark
+    };
+}
+
+function deleteAllDone() {
+    return {
+        type: TODOS.REMOVE_ALL_DONE
+    };
+}
+
+export default { addTodo, removeTodo, removeDone, markAllAsDone, deleteAllDone };
