@@ -1,4 +1,5 @@
 import TodoActions from '../../actions/todo.actions';
+import { TODOS_TO_SHOW } from '../../constants/todos';
 
 class WithreduxController {
   constructor($ngRedux) {
@@ -7,23 +8,52 @@ class WithreduxController {
     this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TodoActions)(this);
   }
 
-  submitTodo() {
-    this.addTodo(this.todo);
-    this.todo = '';
-  }
-
-  alertCurrentTodo() {
-    alert(this.listTodo());
-  }
-
   $onDestroy() {
     this.unsubscribe();
   }
 
   mapStateToThis(state) {
-    return {
-      todos: state.todos
-    };
+    return state
+  }
+/**
+ * Should this be done like this? Or should it be done by a reducer action? I'm not changing the
+ * state so...  
+ */
+  listTodos(todoToShow) {
+    switch (todoToShow) {
+      case TODOS_TO_SHOW.SHOW_ALL:
+        return this.currentState.todos;
+
+      case TODOS_TO_SHOW.SHOW_DONE:
+        return this.currentState.todos.filter(function (todo) {
+          return todo.done;
+        });
+
+      case TODOS_TO_SHOW.SHOW_NOT_DONE:
+        return this.currentState.todos.filter(function (todo) {
+          return !todo.done;
+        });
+    }
+  }
+/**
+ * Should this be done like this? Or should it be done by a reducer action? I'm not changing the
+ * state so...  
+ */
+  countTodos(todoToShow) {
+    switch (todoToShow) {
+      case TODOS_TO_SHOW.SHOW_ALL:
+        return this.currentState.todos.length;
+
+      case TODOS_TO_SHOW.SHOW_DONE:
+        return this.currentState.todos.filter(function (todo) {
+          return todo.done;
+        }).length;
+
+      case TODOS_TO_SHOW.SHOW_NOT_DONE:
+        return this.currentState.todos.filter(function (todo) {
+          return !todo.done;
+        }).length;
+    }
   }
 }
 
