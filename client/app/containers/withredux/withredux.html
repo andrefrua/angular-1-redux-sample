@@ -22,7 +22,7 @@
 
                 <div class="checkbox pull-right">
                     <label>
-                        <input type="checkbox" ng-model="$ctrl.currentState.showDone" />
+                        <input type="checkbox" ng-model="$ctrl.currentState.showDone" ng-change="$ctrl.toggleShowDone()" />
                         Show done
                     </label>
                 </div>

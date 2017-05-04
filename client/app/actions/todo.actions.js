@@ -34,4 +34,10 @@ function deleteAllDone() {
     };
 }
 
-export default { addTodo, removeTodo, removeDone, markAllAsDone, deleteAllDone };
+function toggleShowDone() {
+    return {
+        type: TODOS.TOGGLE_SHOW_DONE
+    }
+}
+
+export default { addTodo, removeTodo, removeDone, markAllAsDone, deleteAllDone, toggleShowDone };
