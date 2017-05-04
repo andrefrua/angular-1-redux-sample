@@ -55,6 +55,20 @@ export function TodosReducer(state = initialState, action) {
                     return { ...todo, done: action.payload };
                 })
             }
+
+        case TODOS.TOGGLE_SHOW_DONE:
+            // Example without Spread Operator (...)
+
+            // return Object.assign({}, state, {
+            //     showDone: !showDone
+            // });
+
+            // Example with Spread Operator (...)
+
+            return {
+                ...state,
+                showDone: !showDone
+            }
         default:
             return state;
     }
