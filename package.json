@@ -1,7 +1,7 @@
 {
-  "name": "angular-1-redux-starter",
+  "name": "angular-1-redux-sample",
   "version": "0.0.1",
-  "description": "Starter application for angular 1 using redux architecture.",
+  "description": "Angular 1 with ng-redux sample",
   "main": "index.js",
   "dependencies": {
     "@uirouter/angularjs": "^1.0.0",
@@ -67,8 +67,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/NG6-starter.git"
+    "url": "https://github.com/pentaho-arua/angular-1-redux-sample.git"
   },
-  "author": "AngularClass",
-  "license": "Apache-2.0"
+  "author": "Pentaho"
 }
