@@ -1,12 +1,12 @@
 import angular      from 'angular';
-import uiRouter     from 'angular-ui-router';
+import uiRouter     from '@uirouter/angularjs';
 import ngRedux      from 'ng-redux';
 
 import AppComponent from './app.component';
 
 import NavigationComponent  from './components/navigation/navigation';
-import WithreduxComponent        from './containers/withredux/withredux';
-import NoreduxComponent        from './containers/noredux/noredux';
+import WithreduxComponent   from './containers/withredux/withredux';
+import NoreduxComponent     from './containers/noredux/noredux';
 
 import { RootReducer } from './reducers';
 
@@ -48,8 +48,6 @@ angular
             });
 
         $urlRouterProvider.otherwise('/noredux');
-
-
         $ngReduxProvider.createStoreWith(RootReducer);
     })
     .component('app', AppComponent);

@@ -7,8 +7,8 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
-       { test: /\.html$/, loader: 'raw' },
+       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate-loader!babel-loader' },
+       { test: /\.html$/, loader: 'raw-loader' },
        {
            test   : /\.woff/,
            loader : require.resolve("url-loader") + '?prefix=font/&limit=10000&mimetype=application/font-woff&name=assets/[hash].[ext]'
@@ -25,8 +25,8 @@ module.exports = {
            test   : /\.svg/,
            loader : require.resolve("file-loader") + '?prefix=font/&name=assets/[hash].[ext]'
        },
-       { test: /\.scss$/, loader: 'style!css?sourceMap!sass?sourceMap' },
-       { test: /\.css$/, loader: 'style!css' }
+       { test: /\.scss$/, loader: 'style-loader!css-loader?sourceMap!sass-loader?sourceMap' },
+       { test: /\.css$/, loader: 'style-loader!css-loader' }
     ]
   },
   plugins: [
