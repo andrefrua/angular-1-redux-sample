@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
-import { TodosReducer }  from './todos.reducer';
+import { TodosReducer } from './todos.reducer';
+
+
+
 
 export const RootReducer = combineReducers({
-    currentState: TodosReducer
+    TodosState: TodosReducer
+    // ,
+    // testingState: TestingReducer
 });
