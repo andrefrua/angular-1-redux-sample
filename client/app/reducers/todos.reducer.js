@@ -1,8 +1,6 @@
 import { TODOS } from '../constants/todos';
 
-
 const initialState = {
-    inputTodo: '',
     showDone: false,
     allDone: false,
     todos: [
@@ -15,11 +13,14 @@ export function TodosReducer(state = initialState, action) {
     switch (action.type) {
         case TODOS.ADD_TODO:
             var newId = Math.max.apply(Math, state.todos.map(function (t) { return t.id; }));
-            if (isNaN(parseInt(newId))) newId = 1
+
+            if (isNaN(parseInt(newId))) newId = 0;
+
+            newId++;
+
             return {
                 ...state,
                 allDone: false,
-                inputTodo: '',
                 todos: state.todos.concat({ id: newId, text: action.payload, done: false })
             }
         case TODOS.REMOVE_TODO:
@@ -38,15 +39,6 @@ export function TodosReducer(state = initialState, action) {
                     return !todo.done;
                 })
             }
-        case TODOS.REMOVE_DONE:
-            return {
-                ...state,
-                allDone: false,
-                todos: state.todos.map(function (todo) {
-                    return todo.id === action.payload ? { ...todo, done: false } : todo;
-                })
-                //(todo, i) => todo.id === action.payload ? { ...todo, done: false } : todo //WITH NEW ES6 SYNTAX
-            };
         case TODOS.MARK_ALL_AS_DONE:
             return {
                 ...state,
@@ -60,16 +52,28 @@ export function TodosReducer(state = initialState, action) {
             // Example without Spread Operator (...)
 
             // return Object.assign({}, state, {
-            //     showDone: !showDone
+            //      showDone: !state.showDone
             // });
 
             // Example with Spread Operator (...)
-
+            console.log(!state.showDone);
             return {
                 ...state,
-                showDone: !showDone
+                showDone: !state.showDone
+            }
+
+        case TODOS.TOGGLE_DONE:
+            return {
+                ...state,
+                todos: state.todos.map(function (todo) {
+                    return todo.id === action.payload ? { ...todo, done: !todo.done } : todo;
+                })
             }
         default:
             return state;
     }
 }
+
+
+
+

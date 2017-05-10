@@ -1,5 +1,5 @@
 <code>
-    {{$ctrl.currentState}}
+    {{$ctrl}}
 </code>
 
 <div class="container">
@@ -11,28 +11,28 @@
             <div class="todolist not-done">
                 <h1>To-do list</h1>
                 <div class="input-group">
-                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.currentState.inputTodo">
+                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo">
                     <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.currentState.inputTodo" ng-click="$ctrl.addTodo($ctrl.currentState.inputTodo)">Add</button>
-                  </span>
+                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo($ctrl.inputTodo)">Add</button>
+                    </span>
                 </div>
 
-                <button class="btn btn-success marginTop10px" ng-if="!$ctrl.currentState.allDone && $ctrl.countTodos('SHOW_ALL') > 0" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
-                <button class="btn btn-danger marginTop10px" ng-if="$ctrl.countTodos('SHOW_DONE')" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
+                <button class="btn btn-success marginTop10px" ng-if="!$ctrl.allDone && $ctrl.countAllTodos > 0" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
+                <button class="btn btn-danger marginTop10px" ng-if="$ctrl.countDoneTodos > 0" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
 
                 <div class="checkbox pull-right">
                     <label>
-                        <input type="checkbox" ng-model="$ctrl.currentState.showDone" ng-change="$ctrl.toggleShowDone()" />
+                        <input type="checkbox" ng-click="$ctrl.toggleShowDone()" />
                         Show done
                     </label>
                 </div>
                 <hr>
 
                 <ul id="sortable" class="list-unstyled">
-                    <li class="ui-state-default" ng-repeat="todo in $ctrl.listTodos('SHOW_ALL')" ng-if="!(!$ctrl.currentState.showDone && todo.done)">
+                    <li class="ui-state-default" ng-repeat="todo in $ctrl.allTodos" ng-if="!(!$ctrl.showDone && todo.done)">
                         <div class="checkbox">
                             <label class="done-{{todo.done}}">
-                                <input type="checkbox" ng-model="todo.done" />
+                                <input type="checkbox" ng-click="$ctrl.toggleDone(todo.id)" />
                                 {{todo.text}}
                             </label>
                             <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.removeTodo($index)">
@@ -42,19 +42,19 @@
                     </li>
                 </ul>
                 <div class="todo-footer">
-                    <strong><span class="count-todos">{{$ctrl.countTodos('SHOW_ALL')}}</span></strong> total |
-                    <strong><span class="count-todos">{{$ctrl.countTodos('SHOW_DONE')}}</span></strong> done
+                    <strong><span class="count-todos">{{$ctrl.countAllTodos}}</span></strong> total |
+                    <strong><span class="count-todos">{{$ctrl.countDoneTodos}}</span></strong> done
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="todolist">
                 <h1>Already done</h1>
-                <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)">Uncheck all</button>
+                <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)" ng-if="$ctrl.countDoneTodos > 0">Uncheck all</button>
                 <ul id="done-items" class="list-unstyled">
-                    <li ng-repeat="doneTodo in $ctrl.listTodos('SHOW_DONE')">
+                    <li ng-repeat="doneTodo in $ctrl.doneTodos">
                         {{doneTodo.text}}
-                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.removeDone(doneTodo.id)">
+                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.toggleDone(doneTodo.id)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </li>

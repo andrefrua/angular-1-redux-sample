@@ -14,13 +14,6 @@ function removeTodo(index) {
     };
 }
 
-function removeDone(id) {
-    return {
-        type: TODOS.REMOVE_DONE,
-        payload: id
-    };
-}
-
 function markAllAsDone(mark) {
     return {
         type: TODOS.MARK_ALL_AS_DONE,
@@ -40,4 +33,11 @@ function toggleShowDone() {
     }
 }
 
-export default { addTodo, removeTodo, removeDone, markAllAsDone, deleteAllDone, toggleShowDone };
+function toggleDone(id) {
+    return {
+        type: TODOS.TOGGLE_DONE,
+        payload: id
+    }
+}
+
+export default { addTodo, removeTodo, markAllAsDone, deleteAllDone, toggleShowDone, toggleDone };
