@@ -11,13 +11,14 @@
             <div class="todolist not-done">
                 <h1>To-do list</h1>
                 <div class="input-group">
-                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo">
+                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-keyup="$ctrl.submitTodo($ctrl.inputTodo)">
+                    <!--<input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-enter="$ctrl.submitTodo($ctrl.inputTodo)">-->
                     <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo($ctrl.inputTodo)">Add</button>
                     </span>
                 </div>
 
-                <button class="btn btn-success marginTop10px" ng-if="!$ctrl.allDone && $ctrl.countAllTodos > 0" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
+                <button class="btn btn-success marginTop10px" ng-if="$ctrl.countDoneTodos !== $ctrl.countAllTodos" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
                 <button class="btn btn-danger marginTop10px" ng-if="$ctrl.countDoneTodos > 0" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
 
                 <div class="checkbox pull-right">

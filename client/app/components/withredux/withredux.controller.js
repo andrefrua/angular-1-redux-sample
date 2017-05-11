@@ -1,15 +1,10 @@
 import TodoActions from '../../actions/todo.actions';
 import { TODOS_TO_SHOW } from '../../constants/todos';
 
-
-
 import TodoSelectors from './withredux.selectors'
-
-
 
 class WithreduxController {
   constructor($ngRedux) {
-
     this.inputTodo = '';
     this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TodoActions)(this);
   }
@@ -21,7 +16,6 @@ class WithreduxController {
   mapStateToThis(state) {
     return {
       //Directly from the state
-      allDone: state.TodosState.allDone, //TODO - NOT USEFULL
       showDone: state.TodosState.showDone,
       //Gets from the selector
       allTodos: TodoSelectors.getAllTodos(state),
@@ -36,33 +30,36 @@ class WithreduxController {
    * Calls the action addTodo send the input parameter and clearing the input todo
    */
   submitTodo() {
+    // Exits if it's neither a mouse click, a enter key press or the inputTodo is empty
+    if ((event.type !== 'click' && event.keyCode !== 13) || !this.inputTodo) return;
+    
     this.addTodo(this.inputTodo);
     this.inputTodo = '';
   }
 
- 
+
   /**
    * Should this be done like this? Or should it be done by a reducer action? I'm not changing the
    * state so...  
    * NOW THIS IS DONE USING SELECTORS
    */
-//   countTodos(todoToShow) {
-//     switch (todoToShow) {
-//       case TODOS_TO_SHOW.SHOW_ALL:
-//         return this.allTodos.length;
+  //   countTodos(todoToShow) {
+  //     switch (todoToShow) {
+  //       case TODOS_TO_SHOW.SHOW_ALL:
+  //         return this.allTodos.length;
 
-//       case TODOS_TO_SHOW.SHOW_DONE:
-//         return this.allTodos.filter(function (todo) {
-//           return todo.done;
-//         }).length;
+  //       case TODOS_TO_SHOW.SHOW_DONE:
+  //         return this.allTodos.filter(function (todo) {
+  //           return todo.done;
+  //         }).length;
 
-//       case TODOS_TO_SHOW.SHOW_NOT_DONE:
-//         return this.allTodos.filter(function (todo) {
-//           return !todo.done;
-//         }).length;
-//     }
-//   }
- }
+  //       case TODOS_TO_SHOW.SHOW_NOT_DONE:
+  //         return this.allTodos.filter(function (todo) {
+  //           return !todo.done;
+  //         }).length;
+  //     }
+  //   }
+}
 
 WithreduxController.$inject = ["$ngRedux"];
 
