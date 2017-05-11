@@ -1,16 +1,22 @@
-import angular      from 'angular';
-import uiRouter     from '@uirouter/angularjs';
-import ngRedux      from 'ng-redux';
+// Third party dependencies
+import angular from 'angular';
+import uiRouter from '@uirouter/angularjs';
+import ngRedux from 'ng-redux';
 
+// Components
 import AppComponent from './app.component';
+import NavigationComponent from './components/navigation/navigation';
+import WithreduxComponent from './components/withredux/withredux';
+import NoreduxComponent from './components/noredux/noredux';
 
-import NavigationComponent  from './components/navigation/navigation';
-import WithreduxComponent   from './containers/withredux/withredux';
-import NoreduxComponent     from './containers/noredux/noredux';
+// TODO - Put the directive into a separate file
+// Directives
+// import AppDirectives from './directives/app.directives';
 
+// Reducers
 import { RootReducer } from './reducers';
 
-// import our default styles for the whole application
+// Imports the default styles for all the application
 import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -38,10 +44,10 @@ angular
             // Dashboard page to contain our goats list page
             .state('app.withredux', {
                 url: '/withredux',
-                template: '<withredux></withredux>'
+                template: '<withredux><p>Extra stuff to test transclude</p></withredux>'
             })
 
-                        // Dashboard page to contain our goats list page
+            // Dashboard page to contain our goats list page
             .state('app.noredux', {
                 url: '/noredux',
                 template: '<noredux></noredux>'
@@ -51,3 +57,22 @@ angular
         $ngReduxProvider.createStoreWith(RootReducer);
     })
     .component('app', AppComponent);
+
+// TODO - Put the directive into a separate file
+angular.module('app')
+    .directive('ngEnter', function () { //a directive to 'enter key press' in elements with the "ng-enter" attribute
+
+        return function (scope, element, attrs) {
+
+            element.bind("keydown keypress", function (event) {
+
+                if (event.which === 13) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.ngEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    })

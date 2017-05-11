@@ -6,7 +6,10 @@ let withreduxComponent = {
   restrict: 'E',
   bindings: {},
   template,
-  controller
+  controller,
+  transclude: true,
+
+  // transclude: 'element'
 };
 
 export default withreduxComponent;

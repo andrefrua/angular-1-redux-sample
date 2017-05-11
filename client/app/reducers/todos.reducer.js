@@ -2,7 +2,6 @@ import { TODOS } from '../constants/todos';
 
 const initialState = {
     showDone: false,
-    allDone: false,
     todos: [
         { id: 1, text: 'First todo item', done: false },
         { id: 2, text: 'Second todo item', done: false }
@@ -20,7 +19,6 @@ export function TodosReducer(state = initialState, action) {
 
             return {
                 ...state,
-                allDone: false,
                 todos: state.todos.concat({ id: newId, text: action.payload, done: false })
             }
         case TODOS.REMOVE_TODO:
@@ -34,7 +32,6 @@ export function TodosReducer(state = initialState, action) {
         case TODOS.REMOVE_ALL_DONE:
             return {
                 ...state,
-                allDone: false,
                 todos: state.todos.filter(function (todo) {
                     return !todo.done;
                 })
@@ -42,7 +39,6 @@ export function TodosReducer(state = initialState, action) {
         case TODOS.MARK_ALL_AS_DONE:
             return {
                 ...state,
-                allDone: action.payload,
                 todos: state.todos.map(function (todo) {
                     return { ...todo, done: action.payload };
                 })
