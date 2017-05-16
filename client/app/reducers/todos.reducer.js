@@ -5,8 +5,8 @@ const initialState = {
     notification: '',
     showDone: false,
     todos: [
-        { id: 1, text: 'First todo item', done: false, error: false },
-        { id: 2, text: 'Second todo item', done: false, error: false }
+        // { id: 1, text: 'First todo item', done: false, error: false },
+        // { id: 2, text: 'Second todo item', done: false, error: false }
     ]
 };
 

@@ -10,4 +10,4 @@ let todosComponent = {
   transclude: true
 };
 
-export default todosComponent;  
+export default todosComponent;

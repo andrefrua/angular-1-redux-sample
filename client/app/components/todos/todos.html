@@ -9,19 +9,19 @@
         </div>
         <div class="col-md-6">
             <div class="todolist not-done">
-                <h1>Main</h1>
+                <h2>Main</h2>
                 <div class="input-group">
-                    <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-keyup="$ctrl.submitTodo($ctrl.inputTodo)">
+                    <input type="text" class="form-control add-todo input-sm" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-keyup="$ctrl.submitTodo($ctrl.inputTodo)">
 
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo()">Add</button>
+                        <button class="btn btn-primary btn-sm" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo()">Add</button>
 
-                        <button class="btn btn-default" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodoInXSeconds(2)">Add in 2 secs</button>
+                        <button class="btn btn-default btn-sm" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodoInXSeconds(2)">Add in 2 secs</button>
                     </span>
                 </div>
 
-                <button class="btn btn-success marginTop10px" ng-if="$ctrl.countDoneTodos !== $ctrl.countAllTodos" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
-                <button class="btn btn-danger marginTop10px" ng-if="$ctrl.countDoneTodos > 0" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
+                <button class="btn btn-success btn-sm marginTop10px" ng-if="$ctrl.countDoneTodos !== $ctrl.countAllTodos" ng-click="$ctrl.markAllAsDone(true)">Mark all as done</button>
+                <button class="btn btn-danger btn-sm marginTop10px" ng-if="$ctrl.countDoneTodos > 0" ng-click="$ctrl.deleteAllDone()">Delete all done</button>
 
                 <div class="checkbox pull-right">
                     <label>
@@ -29,7 +29,8 @@
                         Show done
                     </label>
                 </div>
-                <hr>
+
+                <hr class="clearFix">
 
                 <ul id="sortable" class="list-unstyled">
                     <li class="ui-state-default" ng-repeat="todo in $ctrl.noErrorTodos" ng-if="!(!$ctrl.showDone && todo.done)">
@@ -45,42 +46,53 @@
                     </li>
                 </ul>
                 <div class="todo-footer">
-                    <strong><span class="count-todos">{{$ctrl.countAllTodos}}</span></strong> total |
-                    <strong><span class="count-todos">{{$ctrl.countDoneTodos}}</span></strong> done |
-                    <strong><span class="count-todos">{{$ctrl.countErrorTodos}}</span></strong> error
+                    <span class="count-todos bold">{{$ctrl.countAllTodos}}</span> total |
+                    <span class="count-todos bold">{{$ctrl.countDoneTodos}}</span> done |
+                    <span class="count-todos bold">{{$ctrl.countErrorTodos}}</span> error
 
-                    <strong>
-                        <span class="pull-right"><i class="fa fa-spinner fa-spin" ng-if="$ctrl.isLoading"></i></span>
-                        <span  class="pull-right notification">{{$ctrl.notification}}</span>
-                    </strong>
+                    <span class="pull-right"><i class="fa fa-spinner fa-spin" ng-if="$ctrl.isLoading"></i></span>
+                    <span class="pull-right bold notification">{{$ctrl.notification}}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="todolist">
-                <h1>Done</h1>
-                <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)" ng-if="$ctrl.countDoneTodos > 0">Uncheck all</button>
-                <ul class="list-items list-unstyled">
-                    <li ng-repeat="doneTodo in $ctrl.doneTodos">
-                        {{doneTodo.text}}
-                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.toggleDone(doneTodo.id)">
+                <h2>Done</h2>
+
+                <div ng-if="$ctrl.countDoneTodos > 0">
+                    <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)" ng-if="$ctrl.countDoneTodos > 0">Uncheck all</button>
+                    <ul class="list-items list-unstyled">
+                        <li ng-repeat="doneTodo in $ctrl.doneTodos">
+                            {{doneTodo.text}}
+                            <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.toggleDone(doneTodo.id)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="center" ng-if="!$ctrl.countDoneTodos > 0">
+                    There are no done to-dos
+                </div>
             </div>
 
             <div class="todolist">
-                <h1>Errors</h1>
-                <ul class="list-items list-unstyled">
-                    <li ng-repeat="errorTodo in $ctrl.errorTodos">
-                        {{errorTodo.text}}
-                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.cleanError(errorTodo.id)">
+                <h2>Errors</h2>
+
+                <div ng-if="$ctrl.countErrorTodos > 0">
+                    <ul class="list-items list-unstyled">
+                        <li ng-repeat="errorTodo in $ctrl.errorTodos">
+                            {{errorTodo.text}}
+                            <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.cleanError(errorTodo.id)">
                             <span class="glyphicon glyphicon-refresh"></span>
                         </button>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="center" ng-if="!$ctrl.countErrorTodos > 0">
+                    There are no to-dos with errors
+                </div>
             </div>
+
         </div>
     </div>
 </div>
