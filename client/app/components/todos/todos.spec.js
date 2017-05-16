@@ -1,16 +1,16 @@
-import NoreduxModule from './noredux'
-import NoreduxController from './noredux.controller';
-import NoreduxComponent from './noredux.component';
-import NoreduxTemplate from './noredux.html';
+import TodosModule from './todos'
+import TodosController from './todos.controller';
+import TodosComponent from './todos.component';
+import TodosTemplate from './todos.html';
 
-describe('Noredux', () => {
+describe('Todos', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(NoreduxModule.name));
+  beforeEach(window.module(TodosModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new NoreduxController();
+      return new TodosController();
     };
   }));
 
@@ -21,7 +21,7 @@ describe('Noredux', () => {
   describe('Controller', () => {
     // controller specs
     it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
+      let controller = makeController(); 
       expect(controller).to.have.property('name');
     });
   });
@@ -30,16 +30,16 @@ describe('Noredux', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(NoreduxTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(TodosTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = NoreduxComponent;
+      let component = TodosComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(NoreduxTemplate);
+        expect(component.template).to.equal(TodosTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Noredux', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(NoreduxController);
+        expect(component.controller).to.equal(TodosController);
       });
   });
 });
