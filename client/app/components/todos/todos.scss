@@ -1,10 +1,22 @@
 // Loading spinner
-.todo-footer strong .pull-right .fa-spin{
+.todo-footer strong .pull-right .fa-spin {
     font-size: 24px
 }
  
  // Loading spinner
-.todo-footer strong .notification{
+.todo-footer .notification {
     color: cornflowerblue;
     margin-right: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.clearFix{
+    clear:both;
+}
+
+.bold{
+    font-weight: bold;
 }
