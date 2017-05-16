@@ -2,6 +2,7 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import ngRedux from 'ng-redux';
+import thunk from 'redux-thunk';
 
 // Components
 import AppComponent from './app.component';
@@ -41,38 +42,19 @@ angular
                 template: '<app></app>'
             })
 
-            // Dashboard page to contain our goats list page
+            // Todo page with Redux
             .state('app.withredux', {
                 url: '/withredux',
-                template: '<withredux><p>Extra stuff to test transclude</p></withredux>'
+                template: '<withredux></withredux>'
             })
 
-            // Dashboard page to contain our goats list page
-            .state('app.noredux', {
-                url: '/noredux',
-                template: '<noredux></noredux>'
-            });
+        // // Todo page without Redux
+        // .state('app.noredux', {
+        //     url: '/noredux',
+        //     template: '<noredux></noredux>'
+        // });
 
-        $urlRouterProvider.otherwise('/noredux');
-        $ngReduxProvider.createStoreWith(RootReducer);
+        $urlRouterProvider.otherwise('/withredux');
+        $ngReduxProvider.createStoreWith(RootReducer, [thunk]);
     })
     .component('app', AppComponent);
-
-// TODO - Put the directive into a separate file
-angular.module('app')
-    .directive('ngEnter', function () { //a directive to 'enter key press' in elements with the "ng-enter" attribute
-
-        return function (scope, element, attrs) {
-
-            element.bind("keydown keypress", function (event) {
-
-                if (event.which === 13) {
-                    scope.$apply(function () {
-                        scope.$eval(attrs.ngEnter);
-                    });
-
-                    event.preventDefault();
-                }
-            });
-        };
-    })
