@@ -7,8 +7,7 @@ import thunk from 'redux-thunk';
 // Components
 import AppComponent from './app.component';
 import NavigationComponent from './components/navigation/navigation';
-import WithreduxComponent from './components/withredux/withredux';
-import NoreduxComponent from './components/noredux/noredux';
+import TodosComponent from './components/todos/todos';
 
 // TODO - Put the directive into a separate file
 // Directives
@@ -27,8 +26,7 @@ angular
         ngRedux,
 
         NavigationComponent.name,
-        WithreduxComponent.name,
-        NoreduxComponent.name
+        TodosComponent.name,
     ])
     .config(($locationProvider, $stateProvider, $urlRouterProvider, $ngReduxProvider) => {
         "ngInject";
@@ -43,18 +41,12 @@ angular
             })
 
             // Todo page with Redux
-            .state('app.withredux', {
-                url: '/withredux',
-                template: '<withredux></withredux>'
+            .state('app.todos', {
+                url: '/todos',
+                template: '<todos></todos>'
             })
 
-        // // Todo page without Redux
-        // .state('app.noredux', {
-        //     url: '/noredux',
-        //     template: '<noredux></noredux>'
-        // });
-
-        $urlRouterProvider.otherwise('/withredux');
+        $urlRouterProvider.otherwise('/todos');
         $ngReduxProvider.createStoreWith(RootReducer, [thunk]);
     })
     .component('app', AppComponent);

@@ -5,11 +5,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h1>With Redux</h1>
+            <h1>To-do app</h1>
         </div>
         <div class="col-md-6">
             <div class="todolist not-done">
-                <h1>To-do list</h1>
+                <h1>Main</h1>
                 <div class="input-group">
                     <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-keyup="$ctrl.submitTodo($ctrl.inputTodo)">
 
@@ -58,7 +58,7 @@
         </div>
         <div class="col-md-6">
             <div class="todolist">
-                <h1>Done to-do</h1>
+                <h1>Done</h1>
                 <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)" ng-if="$ctrl.countDoneTodos > 0">Uncheck all</button>
                 <ul class="list-items list-unstyled">
                     <li ng-repeat="doneTodo in $ctrl.doneTodos">
@@ -71,7 +71,7 @@
             </div>
 
             <div class="todolist">
-                <h1>Error to-do</h1>
+                <h1>Errors</h1>
                 <ul class="list-items list-unstyled">
                     <li ng-repeat="errorTodo in $ctrl.errorTodos">
                         {{errorTodo.text}}

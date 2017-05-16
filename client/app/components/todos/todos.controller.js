@@ -1,9 +1,9 @@
 import TodoActions from '../../actions/todo.actions';
 import { TODOS_TO_SHOW } from '../../constants/todos';
 
-import TodoSelectors from './withredux.selectors'
+import TodoSelectors from './todos.selectors'
 
-class WithreduxController {
+class TodosController {
   constructor($ngRedux) {
     this.inputTodo = '';
     this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TodoActions)(this);
@@ -50,6 +50,6 @@ class WithreduxController {
   }
 }
 
-WithreduxController.$inject = ["$ngRedux"];
+TodosController.$inject = ["$ngRedux"];
 
-export default WithreduxController;
+export default TodosController;
