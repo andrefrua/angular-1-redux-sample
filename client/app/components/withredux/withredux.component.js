@@ -7,9 +7,7 @@ let withreduxComponent = {
   bindings: {},
   template,
   controller,
-  transclude: true,
-
-  // transclude: 'element'
+  transclude: true
 };
 
-export default withreduxComponent;
+export default withreduxComponent;  

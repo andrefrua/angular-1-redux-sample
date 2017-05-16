@@ -15,13 +15,20 @@ class WithreduxController {
 
   mapStateToThis(state) {
     return {
+      // TODO: Remove the below line and all it's references. It's just to show the current full state
+      completeState: state,
+
       //Directly from the state
+      isLoading: state.TodosState.isLoading,
       showDone: state.TodosState.showDone,
+      notification: state.TodosState.notification,
       //Gets from the selector
-      allTodos: TodoSelectors.getAllTodos(state),
+      noErrorTodos: TodoSelectors.getNoErrorsTodos(state),
       doneTodos: TodoSelectors.getDoneTodos(state),
+      errorTodos: TodoSelectors.getErrorTodos(state),
       countAllTodos: TodoSelectors.countAllTodos(state),
-      countDoneTodos: TodoSelectors.countDoneTodos(state)
+      countDoneTodos: TodoSelectors.countDoneTodos(state),
+      countErrorTodos: TodoSelectors.countErrorTodos(state)
     }
     //return state;
   }
@@ -32,33 +39,15 @@ class WithreduxController {
   submitTodo() {
     // Exits if it's neither a mouse click, a enter key press or the inputTodo is empty
     if ((event.type !== 'click' && event.keyCode !== 13) || !this.inputTodo) return;
-    
+
     this.addTodo(this.inputTodo);
     this.inputTodo = '';
   }
 
-
-  /**
-   * Should this be done like this? Or should it be done by a reducer action? I'm not changing the
-   * state so...  
-   * NOW THIS IS DONE USING SELECTORS
-   */
-  //   countTodos(todoToShow) {
-  //     switch (todoToShow) {
-  //       case TODOS_TO_SHOW.SHOW_ALL:
-  //         return this.allTodos.length;
-
-  //       case TODOS_TO_SHOW.SHOW_DONE:
-  //         return this.allTodos.filter(function (todo) {
-  //           return todo.done;
-  //         }).length;
-
-  //       case TODOS_TO_SHOW.SHOW_NOT_DONE:
-  //         return this.allTodos.filter(function (todo) {
-  //           return !todo.done;
-  //         }).length;
-  //     }
-  //   }
+  submitTodoInXSeconds(seconds) {
+    this.addTodoThunk(seconds, this.inputTodo);
+    this.inputTodo = '';
+  }
 }
 
 WithreduxController.$inject = ["$ngRedux"];

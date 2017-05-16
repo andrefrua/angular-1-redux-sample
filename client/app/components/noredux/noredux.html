@@ -50,7 +50,7 @@
             <div class="todolist">
                 <h1>Already done</h1>
                 <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)">Uncheck all</button>
-                <ul id="done-items" class="list-unstyled">
+                <ul class="list-items list-unstyled">
                     <li ng-repeat="doneTodo in $ctrl.getAllDone()">
                         {{doneTodo.text}}
                         <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.toggleDone($index)">

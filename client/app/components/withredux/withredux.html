@@ -1,5 +1,5 @@
 <code>
-    {{$ctrl}}
+    {{$ctrl.completeState}}
 </code>
 
 <div class="container">
@@ -12,9 +12,11 @@
                 <h1>To-do list</h1>
                 <div class="input-group">
                     <input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-keyup="$ctrl.submitTodo($ctrl.inputTodo)">
-                    <!--<input type="text" class="form-control add-todo" placeholder="Add todo" ng-model="$ctrl.inputTodo" ng-enter="$ctrl.submitTodo($ctrl.inputTodo)">-->
+
                     <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo($ctrl.inputTodo)">Add</button>
+                        <button class="btn btn-primary" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodo()">Add</button>
+
+                        <button class="btn btn-default" type="button" ng-disabled="!$ctrl.inputTodo" ng-click="$ctrl.submitTodoInXSeconds(2)">Add in 2 secs</button>
                     </span>
                 </div>
 
@@ -30,7 +32,7 @@
                 <hr>
 
                 <ul id="sortable" class="list-unstyled">
-                    <li class="ui-state-default" ng-repeat="todo in $ctrl.allTodos" ng-if="!(!$ctrl.showDone && todo.done)">
+                    <li class="ui-state-default" ng-repeat="todo in $ctrl.noErrorTodos" ng-if="!(!$ctrl.showDone && todo.done)">
                         <div class="checkbox">
                             <label class="done-{{todo.done}}">
                                 <input type="checkbox" ng-click="$ctrl.toggleDone(todo.id)" />
@@ -44,19 +46,37 @@
                 </ul>
                 <div class="todo-footer">
                     <strong><span class="count-todos">{{$ctrl.countAllTodos}}</span></strong> total |
-                    <strong><span class="count-todos">{{$ctrl.countDoneTodos}}</span></strong> done
+                    <strong><span class="count-todos">{{$ctrl.countDoneTodos}}</span></strong> done |
+                    <strong><span class="count-todos">{{$ctrl.countErrorTodos}}</span></strong> error
+
+                    <strong>
+                        <span class="pull-right"><i class="fa fa-spinner fa-spin" ng-if="$ctrl.isLoading"></i></span>
+                        <span  class="pull-right notification">{{$ctrl.notification}}</span>
+                    </strong>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="todolist">
-                <h1>Already done</h1>
+                <h1>Done to-do</h1>
                 <button class="btn btn-warning marginTop10px" ng-click="$ctrl.markAllAsDone(false)" ng-if="$ctrl.countDoneTodos > 0">Uncheck all</button>
-                <ul id="done-items" class="list-unstyled">
+                <ul class="list-items list-unstyled">
                     <li ng-repeat="doneTodo in $ctrl.doneTodos">
                         {{doneTodo.text}}
                         <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.toggleDone(doneTodo.id)">
                             <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="todolist">
+                <h1>Error to-do</h1>
+                <ul class="list-items list-unstyled">
+                    <li ng-repeat="errorTodo in $ctrl.errorTodos">
+                        {{errorTodo.text}}
+                        <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="$ctrl.cleanError(errorTodo.id)">
+                            <span class="glyphicon glyphicon-refresh"></span>
                         </button>
                     </li>
                 </ul>
